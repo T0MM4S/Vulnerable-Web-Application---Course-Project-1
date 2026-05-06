@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Registration System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .event { border: 1px solid #ddd; padding: 15px; margin: 10px 0; }
+        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <h2>Available Events</h2>
+    
+    {% for event in events %}
+    <div class="event">
+        <h3>{{ event.name }}</h3>
+        <p>{{ event.description }}</p>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Max Participants:</strong> {{ event.max_participants }}</p>
+        <a href="{% url 'register_event' event.id %}"><button>Register</button></a>
+        <a href="{% url 'participants' event.id %}"><button>View Participants</button></a>
+    </div>
+    {% endfor %}
+    
+    <p>
+        {% if user.is_staff %}
+        <a href="/admin/">Admin Panel</a> |
+        {% endif %}
+        <a href="/logout/">Logout</a>
+    </p>
+</body>
+</html>
